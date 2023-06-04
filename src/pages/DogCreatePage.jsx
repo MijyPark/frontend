@@ -21,13 +21,13 @@ function DogCreatePage(props) {
     const fData = new FormData();
     const image = e.target.image.files[0];
 
-    fData.append("imageUrl", image);
     fData.append("name", name);
     fData.append("age", age);
     fData.append("info", info);
     fData.append("location", location);
+    fData.append("imageUrl", image);
     
-    const response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}/dogs`, fData)
+    const response = await axios.post("http://localhost:5005/api/dogs", fData)
     .then(() => navigate('/'))
     .catch(err => console.error(err))
   }
