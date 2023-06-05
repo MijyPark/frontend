@@ -1,52 +1,52 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios"
 
-const SignupPage = () => {
-  const navigate = useNavigate()
-
+function SignUpPage (PROPS) {
+ 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
+  const navigate = useNavigate()
+
+  const handleSignUpSubmit = (e) => {
+    e.preventDefault()
+
+    const requestBody = {email, password}
+
+    axios
+    .post("http://localhost:5005/auth/signup", requestBody) 
+    .then((response) => {
+     navigate('/login')
     })
-    if (response.status === 201) {
-      navigate('/login')
-    }
   }
 
   return (
-    <>
+      <div className = 'signup-form'>
       <h1>Signup</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+
+      <form onSubmit={handleSignUpSubmit}>
+        <label>Email: </label>
           <input
             type='email'
             required
             value={email}
             onChange={event => setEmail(event.target.value)}
           />
-        </label>
-        <label>
-          Password
+       
+        <label>Password:</label>
           <input
             type='password'
             required
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
-        </label>
+     
         <button type='submit'>Sign Up</button>
       </form>
-    </>
-  )
-}
+        <Link to={"/login"}> Login</Link>
+     </div>
+    )
+  }
 
-export default SignupPage
+export default SignUpPage

@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
-
+import coverImg from '../assets/home.jpg'
 
 function CoverPage () {
 
-const navigate = useNavigate()
 
   return (
     <>
-      <div className="cover-container">
-      <h1>Dog & Sweet Home</h1>
-      </div>
-      
+    <div>
+    <img src={coverImg} className="coverimg" alt="cover"/>
+    <h2>Dog Rescue</h2>
+
+    </div>
       <Link to="/about">
       <h5>About Us</h5>
       </Link>
@@ -35,8 +34,7 @@ const navigate = useNavigate()
       <Link to="/admin">
       <h5>Admin</h5>
       </Link>
-
-    </>
+  </>
   );
 }
 
