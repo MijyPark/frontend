@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Divider, Input } from "antd"
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
@@ -30,17 +30,19 @@ function DogForm(props) {
     fData.append("info", info);
     fData.append("imageUrl", image);
     
-    const response = await axios.post("http://localhost:5005/api/dogs", fData)
-    .then(() => props.refreshDogs())
+    axios
+    .post("http://localhost:5005/api/dogs", fData)
+    .then(() => {
+     props.refreshDogs()
+    })
     .catch(err => console.error(err))
     }
 
 
   return (
-    <div className="dog-card">
-
+    
       <form encType="multipart/form-data" className="dog-edit-card" onSubmit={handleSubmit}>    
-     
+      <Divider>Admin Dog Form</Divider>
       <label htmlFor="name">Name:  </label>
         <input 
             type="text" 
@@ -66,7 +68,7 @@ function DogForm(props) {
        
         <label htmlFor="size">Size:  </label>
 
-        <textarea 
+        <input
             type="text" 
             name="size" 
             value={size} 
@@ -87,7 +89,6 @@ function DogForm(props) {
        
         <button type="submit">ADD</button>
       </form>
-  </div>
   )
  }
 

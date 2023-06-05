@@ -1,0 +1,40 @@
+import React from "react";
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+const [dogs, setDogs] = useState([])
+
+function DogsList({dogs}) {
+  const [listOfdogs, setListOfdogs] = useState([]);
+
+  const getDogs = async () => {
+    const response = await axios.get(
+      '"https://localhost:5005/api/fosters"'
+    );
+    setListOfdogs(response.data);
+  };
+
+  useEffect(() => {
+    getDogs();
+  }, []);
+
+  return (
+    <div>
+      {listOfdogs.map((dog index) => {
+        return (
+          <div key={index + eachDog.name}>
+            <img
+              src={`${eachDog.name}.jpg`}
+            />
+            <Link to={`${eachCountry.alpha3Code}`}>
+              {eachCountry.name.common}
+            </Link>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default dogsList;

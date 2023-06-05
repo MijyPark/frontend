@@ -18,7 +18,7 @@ function AdoptForm(props) {
   const handleSubmit = (e) => {        
     e.preventDefault();
 
-    const newFoster = { name, family, housing, contract, info };
+    const newFoster = { name, family, housing, contact, info };
     console.log("Submitted: ", newFoster);
     props.AdoptForm(newFoster)
   }

@@ -1,49 +1,45 @@
-
 import { useState, useEffect } from "react";
-import axios from "axios";
-import Navbar from "../components/Navbar"
+import { Link } from "react-router-dom";
+import DogForm from "../components/DogForm"
+import axios from "axios"
 
-function DogListPage() {
+function DogsListPage() {
 
-  const [dogs, setDogs] = useState([]);
+const [dogs, setDogs] = useState([]);
 
-  const getAllDogs = async () => {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/dogs`)
-      if(response) {setDogs(response.data)
-      }    
-  }
-
+const allDogs =() => {                               
+  axios
+      .get("http://localhost:5005/api/dogs")
+      .then((response) => setDogs(response.data))
+      .catch((error) => console.log(error));
+  };
+  
   useEffect(() => {
-    getAllDogs();
+    allDogs();
   }, [] );
 
   return (
-    <>
-      <Navbar/>
-     <div className="dog-list-container">
+    <div>
+     <Search searchText={searchText} setSearchText={setSearchText} />
 
-      <div className="row">
-        <div
-          className="col-5"
-          style={{ maxHeight: "90vh", overflow: "scroll" }}
-        >
+     <div className="dog-list">
+     <Divider>Dog List</Divider>
+     < Row style={{ width: "100%", justifyContent: "center" }}>
 
-        {dogs.map((dog, _id) => {
-          return (
-            <div className="list-group" key={dog._id}>
-               <h4 className="dog-card-name"> {dog.name}</h4>
-               <h5 className="dog-card-text"> {dog.info}</h5>
-              <img src={dog.image} className="dog-card-img"/>
+     <DogForm refreshDogs={allDogs} />
+     
+     {dogs.map((dog) => (
+
+            <div className="dog-list-id" key={dog._id}>
+               <h4 className="dog-list-name"> {dog.name}</h4>
+               <h4 className="dog-list-age"> {dog.age}</h4>
+              <img src={dog.image} className="dog-list-img"/>
             
-            </div>
-        )}
-        )} 
-      </div>
-       </div> 
-  </div>
-  </>
-)
-
+            </div>))} 
+       </Row>
+    </div> 
+   </div> 
+  )
 }
 
-export default DogListPage;
+export default DogsListPage;
