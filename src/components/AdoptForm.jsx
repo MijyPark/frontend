@@ -1,75 +1,81 @@
-import { useState } from "react";
-import axios from "axios";
  
-const API_URL = "http://localhost:5005";
+import { useState } from "react";
+ 
+function AdoptForm(props) {
 
-const UserForm = ({ setUsers }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [conditions, setConditions] = useState(false)
+  const [name, setName] = useState("");
+  const [family, setFamily] = useState(2);
+  const [housing, setHousing] = useState("");
+  const [contact, setContact] = useState(030);
+  const [info, setInfo] = useState("");
 
-  /*   const [inputs, setInputs] = useState({ email: '', password: '', conditions: false }) */
+  const handleNameInput = e => setName(e.target.value);
+  const handleFamilyInput = e => setFamily(e.target.value);
+  const handleHousingInput = e => setHousing(e.target.value);
+  const handleContactInput = e => setContact(e.target.value);
+  const handleInfoInput = e => setInfo(e.target.value);
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    console.log(event)
-    console.log({ email, password })
-    setUsers(prevUsers => [...prevUsers, { email, password }])
-    setEmail('')
-    setPassword('')
+  const handleSubmit = (e) => {        
+    e.preventDefault();
+
+    const newFoster = { name, family, housing, contract, info };
+    console.log("Submitted: ", newFoster);
+    props.AdoptForm(newFoster)
   }
 
-  /*   const handleSubmit = event => {
-    event.preventDefault()
-    console.log(inputs)
-  } */
-
-  /*   const handleChange = event => {
-    console.log(event.target)
-    setInputs({
-      ...inputs,
-      [event.target.name]:
-        event.target.type === 'checkbox' ? event.target.checked : event.target.value,
-    })
-  } */
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input
-          value={email}
-          name='email'
-          onChange={event => {
-            setEmail(event.target.value)
-          }}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type='password'
-          value={password}
-          name='password'
-          onChange={event => {
-            setPassword(event.target.value)
-          }}
-        />
-      </label>
-      <label>
-        Conditions
-        <input
-          type='checkbox'
-          name='conditions'
-          checked={conditions}
-          onChange={event => {
-            setConditions(event.target.checked)
-          }}
-        />
-      </label>
-      <button type='submit'>Sign Up</button>
-    </form>
-  )
-}
 
-export default UserForm
+    <div className="Adoption-form">
+      <h4>Adoptin Formr</h4>
+  
+      <form onSubmit={handleSubmit}>
+        <label>Full Name: </label>
+        <input 
+            type="text" 
+            name="name" 
+            value={name} 
+            onChange={handleNameInput} 
+        />
+        
+  
+        <label>Family size?: </label>
+        <input 
+            type="number" 
+            name="family" 
+            value={family} 
+            onChange={handleFamilyInput} 
+        />
+  
+        <label>Housing Type?: </label>
+        <input 
+            type="text" 
+            name="housing" 
+            value={housing} 
+            onChange={handleHousingInput} 
+        />
+  
+        <label>Contact Number: </label>
+        <input 
+            type="number" 
+            name="contact" 
+            value={contact} 
+            onChange={handleContactInput} 
+        />
+
+        <label> Tell me about you more?: </label>
+         <textarea 
+            type="text" 
+            name="info" 
+            value={info} 
+            onChange={handleInfoInput} 
+        />
+        
+        <button type="submit">APPLY</button>
+
+      </form>
+    </div>
+  );
+ 
+}
+ 
+export default AdoptForm;

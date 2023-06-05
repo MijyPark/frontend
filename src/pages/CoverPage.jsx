@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 //import Open.css from "../scss/OpenPage.css"//
 
-function OpenPage () {
+function CoverPage () {
 
   return (
     <>
@@ -9,7 +9,7 @@ function OpenPage () {
       <h1>Dog & Sweet Home</h1>
       </div>
 
-      <Link to="/dogs">
+      <Link to="/admin/dogs">
       <h5> Our Dogs</h5>
       </Link>
 
@@ -36,4 +36,4 @@ function OpenPage () {
   );
 }
 
-export default OpenPage;
+export default CoverPage;

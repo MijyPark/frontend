@@ -8,10 +8,11 @@ import LogInPage from './pages/LogInPage'
 import SignUpPage from './pages/SignUpPage'
 import DogListPage from './pages/DogListPage'
 import DogDetailPage from './pages/DogDetailPage'
-import DogCreatePage from './pages/DogCreatePage'
-import AdoptPage from './pages/AdoptPage'
-
-
+import AdminDogPage from './pages/AdminDogPage'
+import FosterListPage from './pages/FosterListPage'
+import DonationPage from './pages/DonationPage'
+import ErrorPage from './pages/ErrorPage'
+import LogoutPage from './pages/LogoutPage'
 
 function App() {
   
@@ -25,8 +26,12 @@ function App() {
      <Route path='/dogs' element={<DogListPage />} />
      <Route path='/adopt' element={<AdoptPage />} />
      <Route path='/dogs/:dogId' element={<DogDetailPage />} />
-     <Route path="/admin" element={<DogCreatePage/>} />
+     <Route path='/donation' element={<DonationPage />} />
+     <Route path='/logout' element={<LogoutPage />} />
+     <Route path='/admin/dogs' element={<AdminDogPage/>} />
+     <Route path='/admin/foster' element={<FosterListPage/>} />
  
+     <Route path='*' element={<ErrorPage/>} />
     </Routes> 
   
   )

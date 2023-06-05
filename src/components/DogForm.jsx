@@ -2,15 +2,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import axios from "axios";
+ 
+ 
+function DogForm(props) {
 
-
-function DogCreatePage(props) {
-  
   const [name, setName] = useState("");
-  const [age, setAge] = useState(1);
+  const [age, setAge] = useState(2);
+  const [breed, setBreed] = useState("");
+  const [size, setSize] = useState("");
   const [info, setInfo] = useState("");
-  const [location, setLocation] = useState(""); 
-  const [image, setImage] = useState(""); 
+  const [image, setImage] = useState("");
+
 
   const navigate = useNavigate()
 
@@ -23,64 +25,70 @@ function DogCreatePage(props) {
 
     fData.append("name", name);
     fData.append("age", age);
+    fData.append("breed", breed);
+    fData.append("size", size);
     fData.append("info", info);
-    fData.append("location", location);
     fData.append("imageUrl", image);
     
     const response = await axios.post("http://localhost:5005/api/dogs", fData)
-    .then(() => navigate('/'))
+    .then(() => props.refreshDogs())
     .catch(err => console.error(err))
-  }
+    }
+
 
   return (
-    <div className="dog-edit-card">
+    <div className="dog-card">
 
       <form encType="multipart/form-data" className="dog-edit-card" onSubmit={handleSubmit}>    
      
-      <label htmlFor="name">Name: 
+      <label htmlFor="name">Name:  </label>
         <input 
             type="text" 
             name="name" 
             value={name} 
             onChange={(e)=>{ setName(e.target.value)}}/>
-        </label>
+       
 
-        <label  htmlFor="age">Age:
+        <label  htmlFor="age">Age:  </label>
         <input 
             type="number" 
             name="age" 
             value={age} 
             onChange={(e)=>{ setAge(e.target.value)}}/>
-        </label>
+      
 
-        <label htmlFor="info">Info: 
+        <label  htmlFor="breed">Breed: </label>
+        <input 
+            type="text" 
+            name="breed" 
+            value={breed} 
+            onChange={(e)=>{ setBreed(e.target.value)}}/>
+       
+        <label htmlFor="size">Size:  </label>
+
         <textarea 
             type="text" 
+            name="size" 
+            value={size} 
+            onChange={(e)=>{ setSize(e.target.value)}}/>
+        
+        <label  htmlFor="info"> About:  </label>
+        <textarea
             name="info" 
             value={info} 
             onChange={(e)=>{ setInfo(e.target.value)}}/>
-         </label>
-
-        <label  htmlFor="name">Location: 
-        <input 
-            type="text" 
-            name="location" 
-            value={location} 
-            onChange={(e)=>{ setLocation(e.target.value)}}/>
-        </label>
-
-        <label>Image: 
+        
+        <label>Image:  </label>
         <input 
             type="file" 
             name="image"
             value={image}
             onChange={(e)=>{ setImage(e.target.value)}}/>
-        </label>
-        <button type="submit">Add</button>
-        <Link to={"/dogs"}> List</Link>
+       
+        <button type="submit">ADD</button>
       </form>
   </div>
   )
  }
 
-export default DogCreatePage;
+export default DogForm;
